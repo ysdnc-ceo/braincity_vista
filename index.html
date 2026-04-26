@@ -1,117 +1,94 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-
-const VistaLandingPage = () => {
-  // 1. 애니메이션 설정: 스크롤 시 아래에서 위로 부드럽게 (Fade-in Up)
-  const fadeInUp = {
-    initial: { opacity: 0, y: 50 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, amount: 0.3 },
-    transition: { duration: 0.7, ease: "easeOut" }
-  };
-
-  const rollingTexts = [
-    "삼성전자 P5 2028년 가동 예정",
-    "KAIST 평택캠퍼스 2029년 개교 확정",
-    "★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★"
-  ];
-
-  return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
-      
-      {/* 1. 상단 루빈(Rolling) 바: 자주색 #800020 */}
-      <div className="bg-[#800020] text-white py-3 overflow-hidden whitespace-nowrap">
-        <div className="inline-block animate-marquee">
-          {rollingTexts.concat(rollingTexts).map((text, i) => (
-            <span key={i} className="mx-8 font-bold text-sm md:text-base tracking-tight">
-              {text}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* 2. 헤더: Sticky, 대표번호 1688-4609 */}
-      <header className="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b border-slate-100">
-        <img src="/assets/logo.webp" alt="비스타동원 로고" className="h-7 md:h-9" />
-        <a href="tel:1688-4609" className="flex items-center gap-2 text-[#800020] font-extrabold text-lg md:text-xl">
-          <span className="text-[10px] md:text-xs border border-[#800020] px-1.5 py-0.5 rounded leading-none">대표번호</span>
-          1688-4609
-        </a>
-      </header>
-
-      {/* 메인 비주얼: 커튼월룩 조감도 */}
-      <section className="w-full">
-        <img 
-          src="/assets/main-visual.webp" 
-          alt="비스타동원 조감도" 
-          className="w-full h-auto object-cover"
-        />
-      </section>
-
-      {/* 3. 4대 핵심 이미지 탭 (애니메이션 적용) */}
-      <section className="grid grid-cols-2 gap-3 p-4 bg-slate-50">
-        {[
-          { id: 'env', title: '입지환경', sub: '삼성 & KAIST 바로 앞', icon: '📍' },
-          { id: 'complex', title: '단지안내', sub: '에버랜드 협업 명품 조경', icon: '🌳' },
-          { id: 'plan', title: '평면정보', sub: '4Bay 판상형 특화설계', icon: '📐' },
-          { id: 'interest', title: '관심고객', sub: '등록 시 특별 혜택 제공', icon: '🎁' }
-        ].map((item, idx) => (
-          <motion.button
-            key={item.id}
-            {...fadeInUp}
-            transition={{ ...fadeInUp.transition, delay: idx * 0.1 }}
-            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center text-center active:scale-95"
-          >
-            <span className="text-3xl mb-2">{item.icon}</span>
-            <span className="font-bold text-slate-800 text-base">{item.title}</span>
-            <span className="text-[10px] text-slate-500 mt-1">{item.sub}</span>
-          </motion.button>
-        ))}
-      </section>
-
-      {/* 4. 상세 섹션: 입지환경 (말풍선 강조) */}
-      <motion.section id="env" {...fadeInUp} className="p-8 text-center bg-white">
-        <h2 className="text-2xl font-black text-slate-800 mb-6">입지환경</h2>
-        <div className="relative">
-          <img src="/assets/map.webp" alt="입지 지도" className="w-full rounded-2xl" />
-          <div className="absolute top-1/4 left-1/4 bg-[#800020] text-white px-4 py-2 rounded-full font-bold shadow-lg animate-bounce text-sm">
-            삼성효과 핵심지!
-          </div>
-          <div className="absolute bottom-1/3 right-1/4 bg-blue-600 text-white px-4 py-2 rounded-full font-bold shadow-lg animate-pulse text-sm">
-            KAIST 평택캠퍼스
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 관심고객 등록 폼 (DB 수집용 예시) */}
-      <motion.section id="interest" {...fadeInUp} className="p-8 bg-slate-50">
-        <div className="max-w-md mx-auto bg-white p-6 rounded-3xl shadow-md border border-slate-200">
-          <h3 className="text-xl font-bold text-center mb-6">관심고객 등록</h3>
-          <div className="space-y-4">
-            <input type="text" placeholder="성함" className="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none" />
-            <input type="tel" placeholder="연락처 (- 없이 입력)" className="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none" />
-            <button className="w-full py-4 bg-[#800020] text-white font-bold rounded-xl text-lg shadow-lg">혜택 안내 받기</button>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 5. 하단 푸터: 남색 #000080 (텍스트 없음) */}
-      <footer className="bg-[#000080] h-28 w-full mt-10"></footer>
-
-      {/* Marquee Animation CSS */}
-      <style>{`
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>브레인시티 비스타동원</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 1. 루빈 바 애니메이션 */
         @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          display: inline-block;
-          animation: marquee 30s linear infinite;
+            display: inline-block;
+            animation: marquee 30s linear infinite;
         }
-      `}</style>
-    </div>
-  );
-};
 
-export default VistaLandingPage;
+        /* 2. 스크롤 애니메이션 (Fade-in Up) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.7s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-900 overflow-x-hidden">
+
+    <div class="bg-[#800020] text-white py-3 overflow-hidden whitespace-nowrap">
+        <div class="animate-marquee">
+            <span class="mx-8 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
+            <span class="mx-8 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
+            <span class="mx-8 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
+            <span class="mx-8 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
+            <span class="mx-8 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
+            <span class="mx-8 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
+        </div>
+    </div>
+
+    <header class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b border-slate-100">
+        <img src="logo.webp" alt="로고" class="h-7 md:h-9">
+        <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-extrabold text-lg md:text-xl">
+            <span class="text-[10px] md:text-xs border border-[#800020] px-1.5 py-0.5 rounded">대표번호</span>
+            1688-4609
+        </a>
+    </header>
+
+    <section>
+        <img src="main-visual.webp" alt="조감도" class="w-full h-auto">
+    </section>
+
+    <section class="grid grid-cols-2 gap-3 p-4 bg-slate-50">
+        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#env'">
+            <span class="text-3xl">📍</span>
+            <div class="font-bold mt-2">입지환경</div>
+            <div class="text-[10px] text-slate-500 mt-1">삼성 & KAIST 바로 앞</div>
+        </div>
+        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#complex'">
+            <span class="text-3xl">🌳</span>
+            <div class="font-bold mt-2">단지안내</div>
+            <div class="text-[10px] text-slate-500 mt-1">에버랜드 협업 조경</div>
+        </div>
+        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#plan'">
+            <span class="text-3xl">📐</span>
+            <div class="font-bold mt-2">평면정보</div>
+            <div class="text-[10px] text-slate-500 mt-1">4Bay 판상형 특화</div>
+        </div>
+        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#interest'">
+            <span class="text-3xl">🎁</span>
+            <div class="font-bold mt-2">관심고객</div>
+            <div class="text-[10px] text-slate-500 mt-1">등록 시 특별 혜택</div>
+        </div>
+    </section>
+
+    <footer class="bg-[#000080] h-28 w-full mt-20"></footer>
+
+    <script>
+        // 스크롤 감지 애니메이션 (Intersection Observer)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
+</body>
+</html>
