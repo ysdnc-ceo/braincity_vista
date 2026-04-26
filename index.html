@@ -8,27 +8,55 @@
     <style>
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .animate-marquee { display: inline-block; animation: marquee 30s linear infinite; }
+        
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        @keyframes blink {
+            0%, 100% { background-color: #800020; transform: scale(1); }
+            50% { background-color: #d40035; transform: scale(1.05); }
+        }
+        .animate-blink { animation: blink 1.5s infinite; }
+        
         html { scroll-behavior: smooth; }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+            margin-bottom: 32px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: #800020;
+        }
     </style>
 </head>
-<body class="bg-white text-slate-900 overflow-x-hidden">
+<body class="bg-gray-50 text-slate-900 overflow-x-hidden">
 
-    <div class="bg-[#800020] text-white py-3 overflow-hidden whitespace-nowrap">
+    <div class="bg-[#800020] text-white py-2 overflow-hidden whitespace-nowrap z-[60] relative">
         <div class="animate-marquee">
             <span class="mx-10 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
             <span class="mx-10 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
             <span class="mx-10 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
             <span class="mx-10 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
-            <span class="mx-10 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
         </div>
     </div>
 
-    <header class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b">
-        <img src="logo-vista.png" alt="비스타동원 로고" class="h-8 md:h-10">
-        <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-black text-lg md:text-xl">
-            <span class="text-[10px] border border-[#800020] px-1.5 py-0.5 rounded leading-none">대표번호</span>
+    <header class="sticky top-0 bg-white/95 backdrop-blur-md shadow-md z-50 px-4 py-3 flex justify-between items-center border-b">
+        <div class="flex items-center gap-2">
+            <img src="logo1.png" alt="로고1" class="h-6 md:h-8">
+            <img src="logo2.png" alt="로고2" class="h-5 md:h-7">
+        </div>
+        
+        <a href="tel:1688-4609" class="flex items-center gap-2 bg-white border-2 border-[#800020] text-[#800020] px-3 py-1.5 rounded-full font-black text-base md:text-xl shadow-sm active:scale-95 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 fill-[#800020]" viewBox="0 0 24 24"><path d="M6.176 1.106l2.122 2.122c.469.469.469 1.228 0 1.697l-2.121 2.121c3.045 6.091 8.71 11.756 14.801 14.801l2.121-2.121c.469-.469 1.228-.469 1.697 0l2.122 2.122c.469.469.469 1.228 0 1.697l-2.829 2.828c-.469.469-1.228.469-1.697 0-11.313-11.314-11.313-29.698 0-41.011.469-.469 1.228-.469 1.697 0l2.829 2.828c.469.469.469 1.228 0 1.697z"/></svg>
             1688-4609
         </a>
     </header>
@@ -37,85 +65,125 @@
         <img src="main-vision.jpg" alt="메인 조감도" class="w-full h-auto">
     </section>
 
-    <section class="p-4 bg-slate-50 sticky top-[72px] z-40 shadow-sm">
-        <div class="flex gap-2 w-full">
-            <button onclick="document.getElementById('env').scrollIntoView()" class="flex-1 h-14 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-xs text-slate-700 active:-translate-y-1 transition-all">입지환경</button>
-            <button onclick="document.getElementById('complex').scrollIntoView()" class="flex-1 h-14 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-xs text-slate-700 active:-translate-y-1 transition-all">단지안내</button>
-            <button onclick="document.getElementById('plan').scrollIntoView()" class="flex-1 h-14 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-xs text-slate-700 active:-translate-y-1 transition-all">평면정보</button>
-            <button onclick="document.getElementById('interest').scrollIntoView()" class="flex-1 h-14 bg-[#800020] text-white rounded-lg shadow-sm font-bold text-xs active:-translate-y-1 transition-all">관심고객</button>
+    <section class="p-4 bg-white sticky top-[68px] z-40 shadow-sm border-b">
+        <div class="flex gap-2 w-full max-w-xl mx-auto">
+            <button onclick="document.getElementById('env').scrollIntoView()" class="flex-1 h-16 bg-slate-100 rounded-xl font-bold text-lg md:text-xl text-slate-700 active:scale-95 transition-all">입지환경</button>
+            <button onclick="document.getElementById('complex').scrollIntoView()" class="flex-1 h-16 bg-slate-100 rounded-xl font-bold text-lg md:text-xl text-slate-700 active:scale-95 transition-all">단지안내</button>
+            <button onclick="document.getElementById('plan').scrollIntoView()" class="flex-1 h-16 bg-slate-100 rounded-xl font-bold text-lg md:text-xl text-slate-700 active:scale-95 transition-all">평면정보</button>
+            <button onclick="document.getElementById('interest').scrollIntoView()" class="flex-1 h-16 animate-blink text-white rounded-xl font-black text-lg md:text-xl shadow-lg active:scale-95 transition-all">관심고객</button>
         </div>
     </section>
 
-    <section class="reveal py-10 px-4">
-        <img src="premium1.jpg" alt="프리미엄" class="w-full rounded-2xl shadow-lg">
-    </section>
-
-    <section id="env" class="reveal py-10 bg-slate-50 px-4">
-        <h2 class="text-center text-2xl font-bold mb-6 text-[#800020]">입지환경</h2>
-        <div class="relative">
-            <img src="map.jpg" alt="입지환경 지도" class="w-full rounded-2xl border-4 border-white shadow-md">
-            <div class="absolute top-10 left-10 bg-[#800020] text-white px-3 py-1 rounded-full text-xs font-bold animate-bounce">삼성효과!</div>
+    <section id="env" class="reveal py-20 px-4 text-center">
+        <h2 class="section-title text-3xl font-black text-slate-800">입지환경</h2>
+        <img src="premium1.jpg" alt="프리미엄" class="w-full max-w-4xl mx-auto rounded-2xl shadow-xl mb-12">
+        <div class="relative max-w-4xl mx-auto">
+            <img src="map.jpg" alt="입지환경 지도" class="w-full rounded-2xl border-8 border-white shadow-2xl">
+            <div class="absolute top-1/4 right-10 bg-[#800020] text-white px-5 py-2 rounded-full font-bold animate-bounce shadow-lg text-lg">삼성전자 바로 앞!</div>
         </div>
     </section>
 
-    <section id="complex" class="reveal py-10 px-4">
-        <h2 class="text-center text-2xl font-bold mb-6 text-[#800020]">단지안내</h2>
-        <img src="danzi.jpg" alt="단지안내" class="w-full rounded-2xl mb-4">
-        <div class="grid grid-cols-2 gap-2">
-            <img src="1community1.jpg" alt="커뮤니티1" class="rounded-lg shadow-sm">
-            <img src="community2.jpg" alt="커뮤니티2" class="rounded-lg shadow-sm">
+    <section id="complex" class="reveal py-20 bg-slate-100 px-4 text-center border-y border-slate-200">
+        <h2 class="section-title text-3xl font-black text-slate-800">단지안내</h2>
+        <img src="danzi.jpg" alt="단지안내" class="w-full max-w-4xl mx-auto rounded-2xl shadow-lg mb-8">
+        <div class="grid grid-cols-2 gap-4 max-w-4xl mx-auto mb-12">
+            <img src="community1.jpg" alt="커뮤니티1" class="rounded-xl shadow-md border-4 border-white">
+            <img src="community2.jpg" alt="커뮤니티2" class="rounded-xl shadow-md border-4 border-white">
         </div>
+        <img src="system.jpg" alt="시스템" class="w-full max-w-4xl mx-auto rounded-2xl shadow-lg">
     </section>
 
-    <section class="reveal py-10 bg-slate-50 px-4">
-        <img src="system.jpg" alt="시스템" class="w-full rounded-2xl">
-    </section>
-
-    <section id="plan" class="reveal py-10 px-4">
-        <h2 class="text-center text-2xl font-bold mb-8 text-[#800020]">평면정보</h2>
+    <section id="plan" class="reveal py-20 px-4 text-center bg-white">
+        <h2 class="section-title text-3xl font-black text-slate-800">평면정보</h2>
         
-        <div class="mb-12 border-b pb-8">
-            <img src="59_type_title.jpg" alt="59타입" class="w-2/3 mx-auto mb-4">
-            <div class="grid grid-cols-2 gap-2">
-                <img src="59_type1.jpg" alt="59타입 평면1" class="border rounded">
-                <img src="59_type2.jpg" alt="59타입 평면2" class="border rounded">
+        <div class="max-w-4xl mx-auto space-y-20">
+            <div class="border-b pb-12">
+                <img src="59_type_title.jpg" alt="59타입" class="h-16 mx-auto mb-8">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="59_type1.jpg" alt="59 평면1" class="border rounded-xl p-3 bg-slate-50">
+                    <img src="59_type2.jpg" alt="59 평면2" class="border rounded-xl p-3 bg-slate-50">
+                </div>
+            </div>
+
+            <div class="border-b pb-12">
+                <img src="84A_type_title.jpg" alt="84A타입" class="h-16 mx-auto mb-8">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="84A_type1.jpg" alt="84A 평면1" class="border rounded-xl p-3 bg-slate-50">
+                    <img src="84A_type2.jpg" alt="84A 평면2" class="border rounded-xl p-3 bg-slate-50">
+                </div>
+            </div>
+
+            <div class="border-b pb-12">
+                <img src="84B_type_title.jpg" alt="84B타입" class="h-16 mx-auto mb-8">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="84B_type1.jpg" alt="84B 평면1" class="border rounded-xl p-3 bg-slate-50">
+                    <img src="84B_type2.jpg" alt="84B 평면2" class="border rounded-xl p-3 bg-slate-50">
+                </div>
+            </div>
+
+            <div class="border-b pb-12">
+                <img src="84C_type_title.jpg" alt="84C타입" class="h-16 mx-auto mb-8">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="84C_type1.jpg" alt="84C 평면1" class="border rounded-xl p-3 bg-slate-50">
+                    <img src="84C_type2.jpg" alt="84C 평면2" class="border rounded-xl p-3 bg-slate-50">
+                </div>
+            </div>
+
+            <div>
+                <img src="106_type_title.jpg" alt="106타입" class="h-16 mx-auto mb-8">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="106_type1.jpg" alt="106 평면1" class="border rounded-xl p-3 bg-slate-50">
+                    <img src="106_type2.jpg" alt="106 평면2" class="border rounded-xl p-3 bg-slate-50">
+                </div>
             </div>
         </div>
-
-        <div class="mb-12 border-b pb-8">
-            <img src="84A_type_title.jpg" alt="84A타입" class="w-2/3 mx-auto mb-4">
-            <div class="grid grid-cols-2 gap-2">
-                <img src="84A_type1.jpg" alt="84A타입 평면1" class="border rounded">
-                <img src="84A_type2.jpg" alt="84A타입 평면2" class="border rounded">
-            </div>
-        </div>
-        
-        <p class="text-center text-slate-400 text-sm italic">84B, 84C 타입 정보는 홍보관에서 확인 가능합니다.</p>
     </section>
 
-    <section class="reveal py-10 bg-slate-50 px-4">
-        <div class="flex flex-col gap-4">
-            <img src="brand_01.jpg" alt="브랜드1" class="rounded-xl">
-            <img src="brand_02.jpg" alt="브랜드2" class="rounded-xl">
+    <section class="reveal py-20 bg-slate-50 px-4 text-center">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <img src="brand_01.jpg" alt="브랜드1" class="rounded-2xl shadow-md">
+            <img src="brand_02.jpg" alt="브랜드2" class="rounded-2xl shadow-md">
         </div>
     </section>
 
-    <section id="interest" class="reveal py-16 px-6 bg-white">
-        <div class="max-w-md mx-auto border-2 border-[#800020] p-8 rounded-3xl shadow-xl">
-            <h3 class="text-2xl font-black text-center mb-2 text-[#800020]">관심고객 등록</h3>
-            <p class="text-center text-sm text-slate-500 mb-8">등록 시 미공개 일정 및 혜택을 우선 안내드립니다.</p>
+    <section id="interest" class="reveal py-24 px-6 bg-white">
+        <div class="max-w-md mx-auto bg-white border-4 border-[#800020] p-8 rounded-[40px] shadow-2xl relative">
+            <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-[#800020] text-white px-8 py-2 rounded-full font-bold shadow-lg">SPECIAL EVENT</div>
+            <h3 class="text-2xl font-black text-center mb-6 pt-4 text-slate-800">관심고객 등록</h3>
             <div class="space-y-4">
-                <input type="text" placeholder="성함" class="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none">
-                <input type="tel" placeholder="연락처 (- 없이)" class="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none">
-                <button class="w-full py-5 bg-[#800020] text-white font-bold rounded-xl text-lg shadow-lg active:scale-95 transition-transform">무료 상담 신청하기</button>
+                <input type="text" placeholder="성함" class="w-full p-4 bg-slate-50 rounded-2xl border focus:ring-2 focus:ring-[#800020] outline-none text-lg">
+                <input type="tel" placeholder="연락처 (- 없이)" class="w-full p-4 bg-slate-50 rounded-2xl border focus:ring-2 focus:ring-[#800020] outline-none text-lg">
+                <button class="w-full py-5 bg-[#800020] text-white font-black rounded-2xl text-xl shadow-lg active:scale-95 transition-transform">무료 상담 신청하기</button>
             </div>
         </div>
     </section>
 
-    <footer class="bg-[#000080] h-28 w-full"></footer>
+    <footer class="bg-[#000033] text-slate-400 py-16 px-6 text-base leading-relaxed border-t border-white/10">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+            <div class="space-y-3">
+                <p class="text-white font-bold text-xl mb-6 underline decoration-[#800020] underline-offset-8">사업 안내 및 정보</p>
+                <p><span class="text-slate-200 font-medium">담당자 :</span> 강채원</p>
+                <p><span class="text-slate-200 font-medium">연락처 :</span> 1688-4609</p>
+                <p><span class="text-slate-200 font-medium">이메일 :</span> kcwlove12@naver.com</p>
+            </div>
+            <div>
+                <p class="text-white font-bold text-xl mb-6 underline decoration-[#800020] underline-offset-8">현장 위치</p>
+                <p class="text-slate-200">평택브레인시티 일반산업단지 공동 4BL</p>
+                <p class="mt-8 text-xs text-slate-500 font-light">※ 본 사이트에서 제공되는 모든 평면도 및 이미지는 소비자의 이해를 돕기 위한 홍보용 자료로, 실제 시공 시 차이가 있을 수 있습니다.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[100]">
+        <a href="https://open.kakao.com/..." target="_blank" class="w-16 h-16 bg-[#FEE500] rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 transition-transform border-2 border-white">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" class="w-10 h-10" alt="카톡">
+        </a>
+        <a href="tel:1688-4609" class="w-16 h-16 bg-[#800020] rounded-2xl shadow-xl flex items-center justify-center hover:scale-110 transition-transform border-2 border-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 fill-white" viewBox="0 0 24 24"><path d="M6.176 1.106l2.122 2.122c.469.469.469 1.228 0 1.697l-2.121 2.121c3.045 6.091 8.71 11.756 14.801 14.801l2.121-2.121c.469-.469 1.228-.469 1.697 0l2.122 2.122c.469.469.469 1.228 0 1.697l-2.829 2.828c-.469.469-1.228.469-1.697 0-11.313-11.314-11.313-29.698 0-41.011.469-.469 1.228-.469 1.697 0l2.829 2.828c.469.469.469 1.228 0 1.697z"/></svg>
+        </a>
+    </div>
 
     <script>
-        // 스크롤 애니메이션 스크립트
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) entry.target.classList.add('active');
