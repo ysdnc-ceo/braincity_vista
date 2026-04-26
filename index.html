@@ -1,13 +1,13 @@
 import React from 'react';
-import { motion } from 'framer-motion'; // 애니메이션 라이브러리
+import { motion } from 'framer-motion';
 
 const VistaLandingPage = () => {
-  // 스크롤 애니메이션 설정 (아래에서 위로 스윽)
+  // 1. 애니메이션 설정: 스크롤 시 아래에서 위로 부드럽게 (Fade-in Up)
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 50 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: false },
-    transition: { duration: 0.6, ease: "easeOut" }
+    viewport: { once: true, amount: 0.3 },
+    transition: { duration: 0.7, ease: "easeOut" }
   };
 
   const rollingTexts = [
@@ -17,90 +17,97 @@ const VistaLandingPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden">
       
-      {/* 1. 최상단: 자주색(Burgundy) 루빈 바 */}
-      <div className="bg-[#800020] text-white py-2 overflow-hidden whitespace-nowrap">
-        <div className="animate-marquee inline-block">
-          {rollingTexts.map((text, i) => (
-            <span key={i} className="mx-10 font-bold text-sm md:text-base">
-              {text}
-            </span>
-          ))}
-          {/* 연속성을 위한 복제 */}
-          {rollingTexts.map((text, i) => (
-            <span key={`dup-${i}`} className="mx-10 font-bold text-sm md:text-base">
+      {/* 1. 상단 루빈(Rolling) 바: 자주색 #800020 */}
+      <div className="bg-[#800020] text-white py-3 overflow-hidden whitespace-nowrap">
+        <div className="inline-block animate-marquee">
+          {rollingTexts.concat(rollingTexts).map((text, i) => (
+            <span key={i} className="mx-8 font-bold text-sm md:text-base tracking-tight">
               {text}
             </span>
           ))}
         </div>
       </div>
 
-      {/* 2. 메인 영역 (헤더) */}
-      <header className="sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-50 px-4 py-3 flex justify-between items-center">
-        <img src="/logo-vista.png" alt="비스타동원 로고" className="h-8 md:h-10" />
-        <a href="tel:1688-4609" className="flex items-center gap-2 text-[#800020] font-black text-lg md:text-xl">
-          <span className="text-sm border border-[#800020] px-2 rounded">대표번호</span>
+      {/* 2. 헤더: Sticky, 대표번호 1688-4609 */}
+      <header className="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b border-slate-100">
+        <img src="/assets/logo.webp" alt="비스타동원 로고" className="h-7 md:h-9" />
+        <a href="tel:1688-4609" className="flex items-center gap-2 text-[#800020] font-extrabold text-lg md:text-xl">
+          <span className="text-[10px] md:text-xs border border-[#800020] px-1.5 py-0.5 rounded leading-none">대표번호</span>
           1688-4609
         </a>
       </header>
 
-      {/* 메인 비주얼 (조감도) */}
-      <section className="relative w-full aspect-[16/9] bg-gray-200">
+      {/* 메인 비주얼: 커튼월룩 조감도 */}
+      <section className="w-full">
         <img 
-          src="/main-vision.jpg" 
-          alt="비스타동원 커튼월룩 조감도" 
-          className="w-full h-full object-cover"
+          src="/assets/main-visual.webp" 
+          alt="비스타동원 조감도" 
+          className="w-full h-auto object-cover"
         />
       </section>
 
-      {/* 3. 4대 이미지 탭 (핵심 메뉴) */}
-      <section className="grid grid-cols-2 gap-4 p-6 bg-slate-50">
+      {/* 3. 4대 핵심 이미지 탭 (애니메이션 적용) */}
+      <section className="grid grid-cols-2 gap-3 p-4 bg-slate-50">
         {[
-          { id: 'env', label: '입지환경', sub: '삼성 & KAIST 바로 앞', icon: '📍' },
-          { id: 'complex', label: '단지안내', sub: '에버랜드 협업 명품 조경', icon: '🌳' },
-          { id: 'plan', label: '평면정보', sub: '4Bay 판상형 특화설계', icon: '📐' },
-          { id: 'interest', label: '관심고객', sub: '등록 시 특별 혜택 제공', icon: '📝' }
-        ].map((item, index) => (
-          <motion.a
+          { id: 'env', title: '입지환경', sub: '삼성 & KAIST 바로 앞', icon: '📍' },
+          { id: 'complex', title: '단지안내', sub: '에버랜드 협업 명품 조경', icon: '🌳' },
+          { id: 'plan', title: '평면정보', sub: '4Bay 판상형 특화설계', icon: '📐' },
+          { id: 'interest', title: '관심고객', sub: '등록 시 특별 혜택 제공', icon: '🎁' }
+        ].map((item, idx) => (
+          <motion.button
             key={item.id}
-            href={`#${item.id}`}
             {...fadeInUp}
-            transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
-            className="bg-white p-5 rounded-2xl shadow-md border border-slate-100 flex flex-col items-center text-center active:scale-95 transition-transform"
+            transition={{ ...fadeInUp.transition, delay: idx * 0.1 }}
+            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 flex flex-col items-center text-center active:scale-95"
           >
             <span className="text-3xl mb-2">{item.icon}</span>
-            <h3 className="font-bold text-slate-800">{item.label}</h3>
-            <p className="text-[10px] md:text-xs text-slate-500 mt-1">{item.sub}</p>
-          </motion.a>
+            <span className="font-bold text-slate-800 text-base">{item.title}</span>
+            <span className="text-[10px] text-slate-500 mt-1">{item.sub}</span>
+          </motion.button>
         ))}
       </section>
 
-      {/* 상세 섹션 예시 (입지환경) */}
-      <motion.section id="env" {...fadeInUp} className="p-6">
-        <h2 className="text-2xl font-bold mb-4 border-l-4 border-[#800020] pl-3">입지환경</h2>
-        <div className="relative rounded-xl overflow-hidden shadow-lg bg-blue-50 aspect-square flex items-center justify-center">
-          {/* 지도 이미지 및 타이포그래피 강조 */}
-          <div className="text-center">
-            <span className="bg-[#800020] text-white px-4 py-2 rounded-full font-bold animate-bounce inline-block mb-2">삼성효과</span>
-            <p className="font-black text-3xl text-slate-700 underline decoration-yellow-400">KAIST 바로 앞</p>
+      {/* 4. 상세 섹션: 입지환경 (말풍선 강조) */}
+      <motion.section id="env" {...fadeInUp} className="p-8 text-center bg-white">
+        <h2 className="text-2xl font-black text-slate-800 mb-6">입지환경</h2>
+        <div className="relative">
+          <img src="/assets/map.webp" alt="입지 지도" className="w-full rounded-2xl" />
+          <div className="absolute top-1/4 left-1/4 bg-[#800020] text-white px-4 py-2 rounded-full font-bold shadow-lg animate-bounce text-sm">
+            삼성효과 핵심지!
+          </div>
+          <div className="absolute bottom-1/3 right-1/4 bg-blue-600 text-white px-4 py-2 rounded-full font-bold shadow-lg animate-pulse text-sm">
+            KAIST 평택캠퍼스
           </div>
         </div>
       </motion.section>
 
-      {/* 4. 하단 무지 남색 바 (Footer) */}
-      <footer className="bg-[#000080] h-24 mt-20 flex items-center justify-center">
-        {/* 텍스트 없이 시각적 무게중심만 유지 */}
-      </footer>
+      {/* 관심고객 등록 폼 (DB 수집용 예시) */}
+      <motion.section id="interest" {...fadeInUp} className="p-8 bg-slate-50">
+        <div className="max-w-md mx-auto bg-white p-6 rounded-3xl shadow-md border border-slate-200">
+          <h3 className="text-xl font-bold text-center mb-6">관심고객 등록</h3>
+          <div className="space-y-4">
+            <input type="text" placeholder="성함" className="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none" />
+            <input type="tel" placeholder="연락처 (- 없이 입력)" className="w-full p-4 bg-slate-100 rounded-xl focus:ring-2 focus:ring-[#800020] outline-none" />
+            <button className="w-full py-4 bg-[#800020] text-white font-bold rounded-xl text-lg shadow-lg">혜택 안내 받기</button>
+          </div>
+        </div>
+      </motion.section>
 
-      {/* 스타일링을 위한 커스텀 CSS (Tailwind config 외 별도 처리 시) */}
+      {/* 5. 하단 푸터: 남색 #000080 (텍스트 없음) */}
+      <footer className="bg-[#000080] h-28 w-full mt-10"></footer>
+
+      {/* Marquee Animation CSS */}
       <style>{`
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-          animation: marquee 25s linear infinite;
+          display: inline-block;
+          animation: marquee 30s linear infinite;
         }
       `}</style>
     </div>
