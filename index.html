@@ -78,17 +78,51 @@
 
     <footer class="bg-[#000080] h-28 w-full mt-20"></footer>
 
-    <script>
-        // 스크롤 감지 애니메이션 (Intersection Observer)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
+    import React from 'react';
 
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-    </script>
+const QuickActionMenu = () => {
+  // 버튼 데이터 정의
+  const menuItems = [
+    { id: 'env', label: '입지환경' },
+    { id: 'complex', label: '단지안내' },
+    { id: 'plan', label: '평면정보' },
+    { id: 'interest', label: '관심고객' },
+  ];
+
+  return (
+    <section className="w-full px-4 py-6 bg-slate-50">
+      {/* [주요 변경점]
+        1. flex: 가로 정렬
+        2. gap-2: 버튼 사이 간격 8px
+        3. w-full: 화면 전체 너비 활용 
+      */}
+      <div className="flex gap-2 w-full">
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
+            className={`
+              /* 레이아웃: flex-1로 4등분 균등 배분 */
+              flex-1 
+              /* 디자인: 직사각형 형태 및 배경 */
+              h-16 bg-white border border-slate-200 rounded-lg 
+              shadow-sm flex items-center justify-center
+              /* 텍스트 스타일 */
+              text-sm font-bold text-slate-700
+              /* 애니메이션 핵심: 0.2초 동안 부드럽게 변함 */
+              transition-all duration-200
+              /* 인터랙션: 누르는 순간(active) 위로 4px 이동 */
+              active:-translate-y-1 active:shadow-md active:border-[#800020] active:text-[#800020]
+            `}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default QuickActionMenu;
 </body>
 </html>
