@@ -6,7 +6,7 @@
     <title>브레인시티 비스타동원</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 1. 루빈 바 애니메이션 */
+        /* 루빈 바 롤링 애니메이션 */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -16,11 +16,11 @@
             animation: marquee 30s linear infinite;
         }
 
-        /* 2. 스크롤 애니메이션 (Fade-in Up) */
+        /* 스크롤 시 아래에서 위로 올라오는 효과 */
         .reveal {
             opacity: 0;
             transform: translateY(50px);
-            transition: all 0.7s ease-out;
+            transition: all 0.8s ease-out;
         }
         .reveal.active {
             opacity: 1;
@@ -32,97 +32,59 @@
 
     <div class="bg-[#800020] text-white py-3 overflow-hidden whitespace-nowrap">
         <div class="animate-marquee">
-            <span class="mx-8 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
-            <span class="mx-8 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
-            <span class="mx-8 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
-            <span class="mx-8 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
-            <span class="mx-8 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
-            <span class="mx-8 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
+            <span class="mx-10 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
+            <span class="mx-10 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
+            <span class="mx-10 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
+            <span class="mx-10 font-bold text-sm md:text-base">삼성전자 P5 2028년 가동 예정</span>
+            <span class="mx-10 font-bold text-sm md:text-base">KAIST 평택캠퍼스 2029년 개교 확정</span>
+            <span class="mx-10 font-bold text-sm md:text-base text-yellow-300">★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★</span>
         </div>
     </div>
 
-    <header class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b border-slate-100">
-        <img src="logo-vista.png" alt="로고" class="h-7 md:h-9">
-        <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-extrabold text-lg md:text-xl">
-            <span class="text-[10px] md:text-xs border border-[#800020] px-1.5 py-0.5 rounded">대표번호</span>
+    <header class="sticky top-0 bg-white shadow-sm z-50 px-5 py-4 flex justify-between items-center">
+        <div class="font-black text-2xl text-[#800020]">DW</div> <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-bold text-lg">
+            <span class="text-[10px] border border-[#800020] px-1 rounded">대표번호</span>
             1688-4609
         </a>
     </header>
 
-    <section>
-        <img src="main-vision.jpg" alt="조감도" class="w-full h-auto">
+    <section class="w-full bg-slate-200 aspect-[16/9] flex items-center justify-center overflow-hidden">
+        <img src="https://via.placeholder.com/1200x675?text=Main+Image" alt="조감도" class="w-full h-full object-cover">
     </section>
 
-    <section class="grid grid-cols-2 gap-3 p-4 bg-slate-50">
-        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#env'">
-            <span class="text-3xl">📍</span>
-            <div class="font-bold mt-2">입지환경</div>
-            <div class="text-[10px] text-slate-500 mt-1">삼성 & KAIST 바로 앞</div>
-        </div>
-        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#complex'">
-            <span class="text-3xl">🌳</span>
-            <div class="font-bold mt-2">단지안내</div>
-            <div class="text-[10px] text-slate-500 mt-1">에버랜드 협업 조경</div>
-        </div>
-        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#plan'">
-            <span class="text-3xl">📐</span>
-            <div class="font-bold mt-2">평면정보</div>
-            <div class="text-[10px] text-slate-500 mt-1">4Bay 판상형 특화</div>
-        </div>
-        <div class="reveal bg-white p-5 rounded-2xl shadow-sm border border-slate-200 text-center" onclick="location.href='#interest'">
-            <span class="text-3xl">🎁</span>
-            <div class="font-bold mt-2">관심고객</div>
-            <div class="text-[10px] text-slate-500 mt-1">등록 시 특별 혜택</div>
+    <section class="p-4 bg-slate-50">
+        <div class="flex gap-2 w-full">
+            <button onclick="window.scrollTo({top: 800, behavior: 'smooth'})" 
+                class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
+                입지환경
+            </button>
+            <button onclick="window.scrollTo({top: 1200, behavior: 'smooth'})"
+                class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
+                단지안내
+            </button>
+            <button onclick="window.scrollTo({top: 1600, behavior: 'smooth'})"
+                class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
+                평면정보
+            </button>
+            <button onclick="window.scrollTo({top: 2000, behavior: 'smooth'})"
+                class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
+                관심고객
+            </button>
         </div>
     </section>
 
-    <footer class="bg-[#000080] h-28 w-full mt-20"></footer>
+    <footer class="bg-[#000080] h-24 mt-20"></footer>
 
-    import React from 'react';
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
 
-const QuickActionMenu = () => {
-  // 버튼 데이터 정의
-  const menuItems = [
-    { id: 'env', label: '입지환경' },
-    { id: 'complex', label: '단지안내' },
-    { id: 'plan', label: '평면정보' },
-    { id: 'interest', label: '관심고객' },
-  ];
-
-  return (
-    <section className="w-full px-4 py-6 bg-slate-50">
-      {/* [주요 변경점]
-        1. flex: 가로 정렬
-        2. gap-2: 버튼 사이 간격 8px
-        3. w-full: 화면 전체 너비 활용 
-      */}
-      <div className="flex gap-2 w-full">
-        {menuItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' })}
-            className={`
-              /* 레이아웃: flex-1로 4등분 균등 배분 */
-              flex-1 
-              /* 디자인: 직사각형 형태 및 배경 */
-              h-16 bg-white border border-slate-200 rounded-lg 
-              shadow-sm flex items-center justify-center
-              /* 텍스트 스타일 */
-              text-sm font-bold text-slate-700
-              /* 애니메이션 핵심: 0.2초 동안 부드럽게 변함 */
-              transition-all duration-200
-              /* 인터랙션: 누르는 순간(active) 위로 4px 이동 */
-              active:-translate-y-1 active:shadow-md active:border-[#800020] active:text-[#800020]
-            `}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-    </section>
-  );
-};
-
-export default QuickActionMenu;
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    </script>
 </body>
 </html>
