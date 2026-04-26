@@ -6,7 +6,7 @@
     <title>브레인시티 비스타동원</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* 루빈 바 롤링 애니메이션 */
+        /* 1. 상단 루빈 바 애니메이션 */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -16,10 +16,10 @@
             animation: marquee 30s linear infinite;
         }
 
-        /* 스크롤 시 아래에서 위로 올라오는 효과 */
+        /* 2. 스크롤 시 슥~ 올라오는 효과 */
         .reveal {
             opacity: 0;
-            transform: translateY(50px);
+            transform: translateY(30px);
             transition: all 0.8s ease-out;
         }
         .reveal.active {
@@ -41,15 +41,16 @@
         </div>
     </div>
 
-    <header class="sticky top-0 bg-white shadow-sm z-50 px-5 py-4 flex justify-between items-center">
-        <div class="font-black text-2xl text-[#800020]">DW</div> <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-bold text-lg">
-            <span class="text-[10px] border border-[#800020] px-1 rounded">대표번호</span>
+    <header class="sticky top-0 bg-white/95 backdrop-blur-sm shadow-sm z-50 px-5 py-4 flex justify-between items-center border-b border-slate-100">
+        <div class="font-black text-2xl text-[#800020]">DW</div>
+        <a href="tel:1688-4609" class="flex items-center gap-2 text-[#800020] font-extrabold text-lg">
+            <span class="text-[10px] border border-[#800020] px-1.5 py-0.5 rounded leading-none">대표번호</span>
             1688-4609
         </a>
     </header>
 
-    <section class="w-full bg-slate-200 aspect-[16/9] flex items-center justify-center overflow-hidden">
-        <img main-vision.jpg alt="조감도" class="w-full h-full object-cover">
+    <section class="w-full">
+        <img src="main-vision.jpg" alt="브레인시티 비스타동원 조감도" class="w-full h-auto object-cover">
     </section>
 
     <section class="p-4 bg-slate-50">
@@ -58,22 +59,22 @@
                 class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
                 입지환경
             </button>
-            <button onclick="window.scrollTo({top: 1200, behavior: 'smooth'})"
+            <button onclick="window.scrollTo({top: 1500, behavior: 'smooth'})"
                 class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
                 단지안내
             </button>
-            <button onclick="window.scrollTo({top: 1600, behavior: 'smooth'})"
+            <button onclick="window.scrollTo({top: 2200, behavior: 'smooth'})"
                 class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
                 평면정보
             </button>
-            <button onclick="window.scrollTo({top: 2000, behavior: 'smooth'})"
+            <button onclick="window.scrollTo({top: 2800, behavior: 'smooth'})"
                 class="reveal flex-1 h-16 bg-white border border-slate-200 rounded-lg shadow-sm font-bold text-[13px] text-slate-700 transition-all active:-translate-y-1 active:border-[#800020] active:text-[#800020]">
                 관심고객
             </button>
         </div>
     </section>
 
-    <footer class="bg-[#000080] h-24 mt-20"></footer>
+    <footer class="bg-[#000080] h-28 w-full mt-20"></footer>
 
     <script>
         const observer = new IntersectionObserver((entries) => {
