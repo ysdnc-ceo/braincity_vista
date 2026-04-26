@@ -1,72 +1,78 @@
-import React, { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동원 비스타 랜딩페이지</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
 
-const BusinessApp = () => {
-  const [content, setContent] = useState("");
-  const [showToast, setShowToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState("");
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-  // [기능 1] 페이지 접속 시 데이터 복구
-  useEffect(() => {
-    const savedContent = localStorage.getItem('business_content');
-    if (savedContent) {
-      setContent(savedContent);
-      displayToast("이전에 작성하던 내용을 불러왔습니다.");
-    }
-  }, []);
+        const BusinessApp = () => {
+            const [content, setContent] = useState("");
+            const [showToast, setShowToast] = useState(false);
+            const [toastMsg, setToastMsg] = useState("");
 
-  // [기능 2] 입력 시 실시간 저장
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setContent(value);
-    localStorage.setItem('business_content', value);
-  };
+            useEffect(() => {
+                const savedContent = localStorage.getItem('business_content');
+                if (savedContent) {
+                    setContent(savedContent);
+                    displayToast("이전에 작성하던 내용을 불러왔습니다.");
+                }
+            }, []);
 
-  // [기능 3] 토스트 메시지 제어
-  const displayToast = (msg) => {
-    setToastMsg(msg);
-    setShowToast(true);
-    setTimeout(() => setShowToast(false), 3000); // 3초 후 사라짐
-  };
+            const handleInputChange = (e) => {
+                const value = e.target.value;
+                setContent(value);
+                localStorage.setItem('business_content', value);
+            };
 
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
-      {/* 고정 퀵바 */}
-      <header className="fixed top-0 w-full bg-white border-b border-slate-200 h-16 flex items-center px-6 z-20">
-        <h1 className="font-bold text-blue-600">Open Business Tool</h1>
-      </header>
+            const displayToast = (msg) => {
+                setToastMsg(msg);
+                setShowToast(true);
+                setTimeout(() => setShowToast(false), 3000);
+            };
 
-      <main className="pt-24 pb-12 px-4 max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-          <div className="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
-            <span className="text-sm font-medium text-slate-500">실시간 자동 저장 중</span>
-            <div className="flex gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            </div>
-          </div>
-          
-          <textarea
-            className="w-full h-80 p-6 focus:outline-none resize-none text-lg leading-relaxed"
-            placeholder="여기에 비즈니스 아이디어를 작성하세요. 별도의 저장 버튼 없이도 브라우저에 안전하게 보관됩니다."
-            value={content}
-            onChange={handleInputChange}
-          />
-        </div>
+            return (
+                <div class="min-h-screen flex flex-col items-center justify-center p-4">
+                    <main class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md text-center">
+                        <h1 class="text-3xl font-bold text-gray-800 mb-4">🏗️ 동원 비스타</h1>
+                        <p class="text-gray-600 mb-6">랜딩페이지 제작 도구</p>
+                        
+                        <textarea 
+                            value={content}
+                            onChange={handleInputChange}
+                            placeholder="내용을 입력하세요..."
+                            class="w-full h-40 p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none resize-none mb-4"
+                        />
+                        
+                        <div class="text-green-500 text-sm font-medium animate-pulse">
+                            ● 실시간 자동 저장 중
+                        </div>
+                        
+                        <p class="mt-4 text-xs text-gray-400">
+                            브라우저 캐시를 삭제하기 전까지 데이터는 유지됩니다.
+                        </p>
+                    </main>
 
-        {/* 안내 문구 */}
-        <p className="mt-4 text-sm text-slate-400 text-center">
-          브라우저 캐시를 삭제하기 전까지 데이터는 유지됩니다.
-        </p>
-      </main>
+                    {showToast && (
+                        <div class="fixed bottom-10 bg-gray-800 text-white px-6 py-3 rounded-full shadow-2xl transition-all border border-gray-700">
+                            <span class="text-sm">{toastMsg}</span>
+                        </div>
+                    )}
+                </div>
+            );
+        };
 
-      {/* [기능 4] 토스트 메시지 UI */}
-      {showToast && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-lg transition-opacity duration-500 flex items-center gap-3 z-50">
-          <span className="text-sm">{toastMsg}</span>
-          <button onClick={() => setShowToast(false)} className="text-slate-400 hover:text-white">✕</button>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default BusinessApp;
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<BusinessApp />);
+    </script>
+</body>
+</html>
