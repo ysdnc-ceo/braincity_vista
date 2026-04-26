@@ -76,3 +76,40 @@
     </script>
 </body>
 </html>
+<body class="bg-slate-50">
+    <div id="root"></div>
+    <script type="text/babel">
+        const App = () => (
+            <div className="max-w-md mx-auto bg-white min-h-screen shadow-lg">
+                <header className="bg-blue-900 text-white p-6 text-center">
+                    <h1 className="text-2xl font-bold text-amber-400">동원 비스타</h1>
+                    <p className="text-sm opacity-80 mt-1">브레인시티의 압도적 랜드마크</p>
+                </header>
+                
+                <div className="p-6">
+                    <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6">
+                        <p className="text-amber-800 font-bold">📢 선착순 동호지정 계약 중!</p>
+                    </div>
+
+                    <section className="space-y-4 mb-8">
+                        <div className="bg-gray-100 h-48 flex items-center justify-center rounded-lg text-gray-400">
+                            [ 여기에 조감도 이미지가 들어갑니다 ]
+                        </div>
+                        <h2 className="text-xl font-bold text-gray-800 underline decoration-blue-500">사업개요</h2>
+                        <ul className="text-gray-600 space-y-2 text-sm">
+                            <li>• 위치: 평택 브레인시티 내</li>
+                            <li>• 규모: 지하 2층 ~ 지상 35층</li>
+                            <li>• 세대수: 총 1,XXX 세대 대단지</li>
+                        </ul>
+                    </section>
+
+                    <button className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg shadow-blue-200 shadow-lg active:scale-95 transition-transform">
+                        📞 모델하우스 전화 연결
+                    </button>
+                </div>
+            </div>
+        );
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
