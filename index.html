@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from 'react';
+
+const BusinessApp = () => {
+  const [content, setContent] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+
+  // [기능 1] 페이지 접속 시 데이터 복구
+  useEffect(() => {
+    const savedContent = localStorage.getItem('business_content');
+    if (savedContent) {
+      setContent(savedContent);
+      displayToast("이전에 작성하던 내용을 불러왔습니다.");
+    }
+  }, []);
+
+  // [기능 2] 입력 시 실시간 저장
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setContent(value);
+    localStorage.setItem('business_content', value);
+  };
+
+  // [기능 3] 토스트 메시지 제어
+  const displayToast = (msg) => {
+    setToastMsg(msg);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000); // 3초 후 사라짐
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-900">
+      {/* 고정 퀵바 */}
+      <header className="fixed top-0 w-full bg-white border-b border-slate-200 h-16 flex items-center px-6 z-20">
+        <h1 className="font-bold text-blue-600">Open Business Tool</h1>
+      </header>
+
+      <main className="pt-24 pb-12 px-4 max-w-3xl mx-auto">
+        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+          <div className="p-4 bg-slate-50 border-b border-slate-200 flex justify-between items-center">
+            <span className="text-sm font-medium text-slate-500">실시간 자동 저장 중</span>
+            <div className="flex gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
+          </div>
+          
+          <textarea
+            className="w-full h-80 p-6 focus:outline-none resize-none text-lg leading-relaxed"
+            placeholder="여기에 비즈니스 아이디어를 작성하세요. 별도의 저장 버튼 없이도 브라우저에 안전하게 보관됩니다."
+            value={content}
+            onChange={handleInputChange}
+          />
+        </div>
+
+        {/* 안내 문구 */}
+        <p className="mt-4 text-sm text-slate-400 text-center">
+          브라우저 캐시를 삭제하기 전까지 데이터는 유지됩니다.
+        </p>
+      </main>
+
+      {/* [기능 4] 토스트 메시지 UI */}
+      {showToast && (
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full shadow-lg transition-opacity duration-500 flex items-center gap-3 z-50">
+          <span className="text-sm">{toastMsg}</span>
+          <button onClick={() => setShowToast(false)} className="text-slate-400 hover:text-white">✕</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default BusinessApp;
