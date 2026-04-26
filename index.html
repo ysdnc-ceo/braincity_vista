@@ -1,93 +1,110 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>동원 비스타 랜딩페이지</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <style>
-        .floating-btn { transition: transform 0.2s; }
-        .floating-btn:active { transform: scale(0.9); }
-        @keyframes subtle-pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+import React from 'react';
+import { motion } from 'framer-motion'; // 애니메이션 라이브러리
+
+const VistaLandingPage = () => {
+  // 스크롤 애니메이션 설정 (아래에서 위로 스윽)
+  const fadeInUp = {
+    initial: { opacity: 0, y: 60 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: false },
+    transition: { duration: 0.6, ease: "easeOut" }
+  };
+
+  const rollingTexts = [
+    "삼성전자 P5 2028년 가동 예정",
+    "KAIST 평택캠퍼스 2029년 개교 확정",
+    "★관심고객 등록 시 미공개 정보 및 분양 일정 우선 안내★"
+  ];
+
+  return (
+    <div className="min-h-screen bg-white font-sans overflow-x-hidden">
+      
+      {/* 1. 최상단: 자주색(Burgundy) 루빈 바 */}
+      <div className="bg-[#800020] text-white py-2 overflow-hidden whitespace-nowrap">
+        <div className="animate-marquee inline-block">
+          {rollingTexts.map((text, i) => (
+            <span key={i} className="mx-10 font-bold text-sm md:text-base">
+              {text}
+            </span>
+          ))}
+          {/* 연속성을 위한 복제 */}
+          {rollingTexts.map((text, i) => (
+            <span key={`dup-${i}`} className="mx-10 font-bold text-sm md:text-base">
+              {text}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* 2. 메인 영역 (헤더) */}
+      <header className="sticky top-0 bg-white/90 backdrop-blur-md shadow-sm z-50 px-4 py-3 flex justify-between items-center">
+        <img src="/logo-vista.png" alt="비스타동원 로고" className="h-8 md:h-10" />
+        <a href="tel:1688-4609" className="flex items-center gap-2 text-[#800020] font-black text-lg md:text-xl">
+          <span className="text-sm border border-[#800020] px-2 rounded">대표번호</span>
+          1688-4609
+        </a>
+      </header>
+
+      {/* 메인 비주얼 (조감도) */}
+      <section className="relative w-full aspect-[16/9] bg-gray-200">
+        <img 
+          src="/main-vision.jpg" 
+          alt="비스타동원 커튼월룩 조감도" 
+          className="w-full h-full object-cover"
+        />
+      </section>
+
+      {/* 3. 4대 이미지 탭 (핵심 메뉴) */}
+      <section className="grid grid-cols-2 gap-4 p-6 bg-slate-50">
+        {[
+          { id: 'env', label: '입지환경', sub: '삼성 & KAIST 바로 앞', icon: '📍' },
+          { id: 'complex', label: '단지안내', sub: '에버랜드 협업 명품 조경', icon: '🌳' },
+          { id: 'plan', label: '평면정보', sub: '4Bay 판상형 특화설계', icon: '📐' },
+          { id: 'interest', label: '관심고객', sub: '등록 시 특별 혜택 제공', icon: '📝' }
+        ].map((item, index) => (
+          <motion.a
+            key={item.id}
+            href={`#${item.id}`}
+            {...fadeInUp}
+            transition={{ ...fadeInUp.transition, delay: index * 0.1 }}
+            className="bg-white p-5 rounded-2xl shadow-md border border-slate-100 flex flex-col items-center text-center active:scale-95 transition-transform"
+          >
+            <span className="text-3xl mb-2">{item.icon}</span>
+            <h3 className="font-bold text-slate-800">{item.label}</h3>
+            <p className="text-[10px] md:text-xs text-slate-500 mt-1">{item.sub}</p>
+          </motion.a>
+        ))}
+      </section>
+
+      {/* 상세 섹션 예시 (입지환경) */}
+      <motion.section id="env" {...fadeInUp} className="p-6">
+        <h2 className="text-2xl font-bold mb-4 border-l-4 border-[#800020] pl-3">입지환경</h2>
+        <div className="relative rounded-xl overflow-hidden shadow-lg bg-blue-50 aspect-square flex items-center justify-center">
+          {/* 지도 이미지 및 타이포그래피 강조 */}
+          <div className="text-center">
+            <span className="bg-[#800020] text-white px-4 py-2 rounded-full font-bold animate-bounce inline-block mb-2">삼성효과</span>
+            <p className="font-black text-3xl text-slate-700 underline decoration-yellow-400">KAIST 바로 앞</p>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 4. 하단 무지 남색 바 (Footer) */}
+      <footer className="bg-[#000080] h-24 mt-20 flex items-center justify-center">
+        {/* 텍스트 없이 시각적 무게중심만 유지 */}
+      </footer>
+
+      {/* 스타일링을 위한 커스텀 CSS (Tailwind config 외 별도 처리 시) */}
+      <style>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
         }
-        .pulse-btn { animation: subtle-pulse 2s infinite ease-in-out; }
-    </style>
-</head>
-<body class="bg-slate-50">
-    <div id="root"></div>
+        .animate-marquee {
+          animation: marquee 25s linear infinite;
+        }
+      `}</style>
+    </div>
+  );
+};
 
-    <script type="text/babel">
-        const App = () => {
-            const phoneNumber = "010-0000-0000"; 
-            const kakaoLink = "#"; 
-
-            return (
-                <div className="max-w-2xl mx-auto bg-white min-h-screen shadow-lg pb-40">
-                    {/* 상단 헤더 */}
-                    <header className="bg-blue-900 text-white p-6 text-center">
-                        <h1 className="text-2xl font-bold text-amber-400 tracking-tight">동원 비스타</h1>
-                        <p className="text-sm opacity-80 mt-1">브레인시티의 압도적 랜드마크</p>
-                    </header>
-                    
-                    <div className="p-6">
-                        {/* 홍보 배너 */}
-                        <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-8 text-center">
-                            <p className="text-amber-800 font-bold">📢 선착순 동호지정 계약 중!</p>
-                        </div>
-
-                        {/* 메인 콘텐츠 (이미지 영역) */}
-                        <section className="space-y-6 mb-12">
-                            <div className="bg-gray-100 aspect-[16/9] flex items-center justify-center rounded-2xl text-gray-400 border-2 border-dashed border-gray-200">
-                                <span className="text-sm">[ 조감도 이미지 영역 ]</span>
-                            </div>
-                            
-                            <div className="bg-slate-50 p-6 rounded-2xl">
-                                <h2 className="text-xl font-bold text-blue-900 mb-4 border-b pb-2">사업안내</h2>
-                                <div className="space-y-4 text-sm text-gray-700">
-                                    <p className="flex justify-between border-b border-gray-100 pb-2"><b>위치</b> <span>평택 브레인시티 내</span></p>
-                                    <p className="flex justify-between border-b border-gray-100 pb-2"><b>규모</b> <span>지하 2층 ~ 지상 35층</span></p>
-                                    <p className="flex justify-between pb-1"><b>세대수</b> <span>총 1,XXX 세대 대단지</span></p>
-                                </div>
-                            </div>
-                        </section>
-
-                        <p className="text-[10px] text-gray-400 text-center leading-relaxed mb-20">
-                            ※ 본 페이지는 소비자 이해를 돕기 위한 홍보물입니다.
-                        </p>
-                    </div>
-
-                    {/* 📱 1. 우측 사이드 플로팅 버튼 (전화/카톡) */}
-                    <div className="fixed bottom-24 right-6 flex flex-col gap-3 z-40">
-                        <a href={kakaoLink} className="floating-btn w-14 h-14 bg-[#FEE500] rounded-full shadow-lg flex flex-col items-center justify-center border border-yellow-400">
-                            <span className="text-lg">💬</span>
-                            <span className="text-[9px] font-bold text-[#3C1E1E]">카톡상담</span>
-                        </a>
-                        <a href={`tel:${phoneNumber}`} className="floating-btn w-14 h-14 bg-blue-600 rounded-full shadow-lg flex flex-col items-center justify-center border border-blue-700 text-white">
-                            <span className="text-lg">📞</span>
-                            <span className="text-[9px] font-bold">전화연결</span>
-                        </a>
-                    </div>
-
-                    {/* 🚀 2. 하단 전체 가로 바 (관심고객등록) */}
-                    <div className="fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 p-3 z-50">
-                        <div className="max-w-2xl mx-auto">
-                            <button className="pulse-btn w-full bg-gradient-to-r from-amber-400 to-amber-500 text-blue-900 py-4 rounded-xl font-extrabold text-xl shadow-lg active:scale-95 transition-all">
-                                ✨ 관심고객 등록하고 혜택받기
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
-</html>
+export default VistaLandingPage;
