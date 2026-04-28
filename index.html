@@ -121,8 +121,8 @@
     <footer class="bg-[#000033] py-12 px-8">
         <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between gap-6 border-t border-white/5 pt-8">
             <div class="text-[11px] text-slate-500 space-y-1.5 leading-relaxed">
-                <p>담당자: 강채원 &nbsp; | &nbsp; 연락처: 1688-4609</p>
-                <p>이메일: kcwlove12@naver.com</p>
+                <p>홈페이지 담당자: 강채원 &nbsp; | &nbsp; 연락처: 1688-4609</p>
+                <p>이메일: ysdnc.ceo@gmail.com</p>
                 <p>현장주소: 평택브레인시티 일반산업단지 공동 4BL</p>
             </div>
             <div class="text-[10px] text-slate-600 font-light max-w-[300px]">
@@ -132,7 +132,7 @@
     </footer>
 
     <div class="fixed bottom-6 right-6 flex flex-col gap-3 z-[100]">
-        <a href="https://open.kakao.com/..." target="_blank" class="w-16 h-16 bg-[#FEE500] rounded-2xl shadow-xl flex items-center justify-center border-2 border-white">
+        <a href="https://open.kakao.com/me/ysdnc_vista" target="_blank" class="w-16 h-16 bg-[#FEE500] rounded-2xl shadow-xl flex items-center justify-center border-2 border-white">
             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/KakaoTalk_logo.svg" class="w-10 h-10" alt="카톡">
         </a>
         <a href="tel:1688-4609" class="w-16 h-16 bg-[#800020] rounded-2xl shadow-xl flex items-center justify-center border-2 border-white">
@@ -146,5 +146,31 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     </script>
+<script>
+    document.getElementById('consultationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        
+        // ⚠️ 주의: 동원비스타 전용으로 새로 만든 구글 앱 URL을 여기에 넣으세요!
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbynH62jCBTEq7Ht-vr9kdaE7ngyL76jSh-SySAW8kuQPh5YZb8UP4tFuEHV-dI7hC6e/exec'; 
+        btn.disabled = true;
+        btn.innerText = "전송 중...";
+
+        const formData = new FormData(this);
+        
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(response => {
+                alert('신청이 성공적으로 완료되었습니다. 곧 연락드리겠습니다!');
+                btn.disabled = false;
+                btn.innerText = "무료 상담 신청하기";
+                this.reset(); // 신청 완료 후 입력창 비우기
+            })
+            .catch(error => {
+                alert('전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+                btn.disabled = false;
+                btn.innerText = "무료 상담 신청하기";
+            });
+    });
+</script>
 </body>
 </html>
